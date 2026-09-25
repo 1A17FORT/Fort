@@ -18,6 +18,9 @@ echo 'Сегодня: ' . $Number1 . $Number2 . ' год';
 
 define('SCONSTANT_NAME', 19);
 echo SCONSTANT_NAME;
+
+// Примеры вывода
+
 $x = 10;
 echo('<br>' . $x . '</br>');
 $y = 20;
@@ -35,3 +38,11 @@ echo $y. '<br>';
 
 $x++; // $x += 1;
 $x --; // $x -= 1;
+
+//Встроенные константы
+
+$ConE = M_E;
+$ConPi = M_1_PI;
+
+echo(M_2_PI . '<br>');
+echo($ConE);
