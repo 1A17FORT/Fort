@@ -18,3 +18,20 @@ echo 'Сегодня: ' . $Number1 . $Number2 . ' год';
 
 define('SCONSTANT_NAME', 19);
 echo SCONSTANT_NAME;
+$x = 10;
+echo('<br>' . $x . '</br>');
+$y = 20;
+
+echo $x + $y . '<br>';
+echo $x - $y . '<br>';
+echo $x * $y . '<br>';
+echo $x / $y . '<br>';
+echo $x % $y . '<br>';
+
+$x += 10; // $x = $x + 10;
+$y -= 10; // $y = $y - 10;
+echo $x.'<br>';
+echo $y. '<br>';
+
+$x++; // $x += 1;
+$x --; // $x -= 1;
