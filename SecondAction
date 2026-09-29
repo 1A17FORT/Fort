@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <? if(empty($_POST)): ?>
+        <form method="post">
+            <p>Name: <input type="text" name="name"> </p>
+            <p>Email: <input type="email" name="email"> </p>
+
+            <p> <button type="submit" name="send">Send</button></p>
+        </form>
+    <? else: ?>
+    <? print_r($_POST);?>
+    <? endif; ?>
+</body>
+</html>
