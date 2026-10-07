@@ -29,32 +29,6 @@ if (isset($_POST['send_form']))
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body> 
-    <!-- Указывать путь куда идёт форма action -->
-    <form method="post">
-        <p>Name: <input type="text" name="name"> </p>
-        <p>Email: <input type="email" name="email"> </p>
-        <p>Text: <textarea name="message"> </textarea></p>
-        <p>Agree?<input type="checkbox" name="agree"></p>
-        <p> <button type="submit" name="send">Send</button></p>
-    </form>
-<hr>
-    <form method="post">
-        <p>Name: <input type="text" name="s"></p>
-        <p><button type="submit" name="send_form">Send</button></p>
-    </form>
-    
-</body>
-</html>
-
-
 <?
 $arr = [
     [
@@ -91,13 +65,13 @@ $arr =
     ],
 ];
 
-$sum = 0;
-foreach ($arr as $sub) {
-    foreach ($sub as $elem) {
-        $sum += $elem;
-    }
-}
-echo $sum;
+// $sum = 0;
+// foreach ($arr as $sub) {
+//     foreach ($sub as $elem) {
+//         $sum += $elem;
+//     }
+// }
+// echo $sum;
 ?>
 
 <?
@@ -176,14 +150,14 @@ $arr =
 
 <?
 
-$arr = [[1,2,3,[4,5,[6,7]]],[8,[9,10]]];
+// $arr = [[1,2,3,[4,5,[6,7]]],[8,[9,10]]];
 
-$sum = $arr [0][0] + $arr [0][1] + $arr [0][2]
-+ $arr [0][3][2] + $arr [0][3][1]
-+ $arr [0][3][2][0] + $arr [0][3][2][1]
-+ $arr [1][0]
-+ $arr [1][1][0] + $arr [1][1][1];
-echo $sum;
+// $sum = $arr [0][0] + $arr [0][1] + $arr [0][2]
+// + $arr [0][3][2] + $arr [0][3][1]
+// + $arr [0][3][2][0] + $arr [0][3][2][1]
+// + $arr [1][0]
+// + $arr [1][1][0] + $arr [1][1][1];
+// echo $sum;
 
 ?>
 
@@ -437,6 +411,10 @@ $products = [
         'price' => 300,
         'amount' => 7,
     ],
-]
-
+];
+   foreach ($products as $Product)
+      {
+         echo $Product['name'] . ' его цена: ' . $Product['price'] . '$ и в количестве: ' . $Product['amount'] . '<br>';
+      }
+?>
 ?>
