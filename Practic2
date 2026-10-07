@@ -31,3 +31,25 @@ if (isset($_GET['name']) || isset($_GET['surname']))
       }
    }
    ?>
+   <form action="" method="POST">
+      <p>Электронная почта: <input type="email" name="email"></p>
+      <p><input type="submit" value="Зарегестрироваться" name="send_form"> </p>
+   </form>
+   <?php
+   $show_form=true;
+   if ($_SERVER['REQUEST_METHOD']==='post'){
+      if(empty(trim($_POST['name']))){
+         echo "<p>Поля не заполнены!</p>";
+      } else{
+         $name=($_POST['name']);
+         echo "<h2>Ввели: $name</h2>";
+         $show_form=false;
+      }
+   }
+   if($show_form):
+   ?>
+   <form action="" method="POST">
+      <p>Имя: <input type="text" name="name"></p>
+      <p><input type="submit" value="Отправить" name="send_form"> </p>
+   </form>
+   <?php endif; ?>
