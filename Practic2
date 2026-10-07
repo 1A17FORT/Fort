@@ -1,0 +1,33 @@
+<!-- <form action="" method="get">
+   <p>Ваше имя: <input type="text" name="name"></p>
+   <p>Ваша фамилия: <input type="text" name="surname" id=""></p>
+   <p><input type="submit" value="send" name="FirstFormSend"></p>
+</form> -->
+
+<?
+if (isset($_GET['name']) || isset($_GET['surname']))
+   {
+      $name = ($_GET['name']);
+      $surname = ($_GET['surname']);
+      echo "<h3>Здравствуйте, $name $surname</h3>";
+   }
+   ?>
+<form action="" method="post">
+   <p>Введите почту: <input type="email" name="Email"></p>
+   <p><input type="submit" value="Зарегестрироваться" name="send_form"> </p>
+</form>
+ <?php
+   $existing_email="admin@admin.com";
+   if($_SERVER['REQUEST_METHOD']==='POST'){
+      $email= trim($_POST['Email']);
+      if(!empty($email)){
+         if($email===$existing_email){
+            echo "<p> Пользователь с таким адресом почты уже существует!</p>";
+         } else {
+            echo "<p>Вы зарегестрированы!</p>";
+         }
+      } else {
+         echo "<p>Заполните поле!</p>";
+      }
+   }
+   ?>
