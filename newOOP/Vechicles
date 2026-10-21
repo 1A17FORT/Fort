@@ -1,0 +1,62 @@
+<?
+class Vechicle {
+    protected $brand;
+    protected $speed = 0;
+    public function __construct($brand)
+    {
+        $this->brand = $brand;
+    }
+    public function acceleration($value){
+        $this->speed += $value;
+    }
+    public function brake($value){
+        $this->speed -= $value;
+    }
+    public function getSpeed(){
+        return $this->speed;
+    }
+    public function getInfo(){
+        return 'Марка автомобиля: ' . $this->brand . ', Скорость: ' . $this->speed . 'км/ч';
+    }
+}
+
+
+class Car extends Vechicle {
+    protected $fuel = 17;
+    public function __construct($brand, $fuel)
+    {
+        parent::__construct($brand);
+        $this->fuel = $fuel;
+    }
+    public function getInfo(){
+        $VechInfo = parent::getInfo();
+        return $VechInfo . ', Топливо: ' . $this->fuel .  'л.';
+    }
+}
+class Bicycle extends Vechicle{
+    protected $hasBell = true;
+    public function __construct($brand, $hasBell)
+    {
+        parent::__construct($brand);
+        $this->hasBell = $hasBell;
+    }
+    public function ringBell(){
+        if ($this->hasBell === true)
+            {
+                echo "Дзинь - дзынь \n";
+            }
+        else 
+            {
+                echo "Нет Дзынь - дзынь( \n";
+            }  
+    }
+}
+$car = new Car('Toyota', 45);
+$bikeWithBell = new Bicycle('Stels', true);
+$bikeNoBell = new Bicycle('Forward', false);
+$car->acceleration(60);
+$car->brake(20);
+echo $car->getInfo();
+$bikeWithBell->ringBell();
+$bikeNoBell->ringBell();
+?>
