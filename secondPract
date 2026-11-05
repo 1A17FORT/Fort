@@ -1,0 +1,185 @@
+<?php
+require 'db.php';
+
+$result = mysqli_query($link, "SELECT * FROM users");
+?>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th>Зарплата</th>
+        <th>Удалить</th>
+        <th>Просмотр</th>
+        <th>Редактировать</th>
+    </tr>
+
+    <?php while ($user = mysqli_fetch_assoc($result)): ?>
+        <tr>
+            <td><?= e($user['id']) ?></td>
+            <td><?= e($user['name']) ?></td>
+            <td><?= e($user['age']) ?></td>
+            <td><?= e($user['salary']) ?></td>
+
+            <td>
+                <a href="delete.php?id=<?= $user['id'] ?>">
+                    удалить
+                </a>
+            </td>
+
+            <td>
+                <a href="show.php?id=<?= $user['id'] ?>">
+                    просмотр
+                </a>
+            </td>
+
+            <td>
+                <a href="edit.php?id=<?= $user['id'] ?>">
+                    редактировать
+                </a>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</table>
+
+<br>
+
+<a href="new.php">Добавить пользователя</a>
+<?php
+require 'db.php';
+
+$id = (int)($_GET['id'] ?? 0);
+
+$stmt = mysqli_prepare($link, "DELETE FROM users WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+header('Location: index.php');
+exit;
+<?php
+require 'db.php';
+
+$id = (int)($_GET['id'] ?? 0);
+
+$stmt = mysqli_prepare($link, "SELECT * FROM users WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+$user = mysqli_fetch_assoc($result);
+
+if (!$user) {
+    die('Пользователь не найден');
+}
+?>
+
+<div>
+    <h2><?= e($user['name']) ?></h2>
+
+    <p>
+        Возраст:
+        <span class="age"><?= e($user['age']) ?></span>
+    </p>
+
+    <p>
+        Зарплата:
+        <span class="salary"><?= e($user['salary']) ?></span>
+    </p>
+</div>
+
+<a href="index.php">Назад</a>
+<form action="new.php" method="POST">
+    <input name="name" placeholder="Имя">
+    <input name="age" type="number" placeholder="Возраст">
+    <input name="salary" type="number" placeholder="Зарплата">
+    <input type="submit" value="Добавить">
+</form>
+
+<?php
+require 'db.php';
+
+$name = $_POST['name'] ?? '';
+$age = (int)($_POST['age'] ?? 0);
+$salary = (int)($_POST['salary'] ?? 0);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $stmt = mysqli_prepare(
+        $link,
+        "INSERT INTO users (name, age, salary) VALUES (?, ?, ?)"
+    );
+
+    mysqli_stmt_bind_param($stmt, "sii", $name, $age, $salary);
+    mysqli_stmt_execute($stmt);
+
+    header('Location: index.php');
+    exit;
+}
+?>
+<?php
+require 'db.php';
+
+$id = (int)($_GET['id'] ?? 0);
+
+$stmt = mysqli_prepare($link, "SELECT * FROM users WHERE id = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+$user = mysqli_fetch_assoc($result);
+
+if (!$user) {
+    die('Пользователь не найден');
+}
+?>
+
+<form action="save.php?id=<?= $user['id'] ?>" method="POST">
+    <input
+        name="name"
+        value="<?= e($user['name']) ?>"
+        placeholder="Имя"
+    >
+
+    <input
+        name="age"
+        type="number"
+        value="<?= e($user['age']) ?>"
+        placeholder="Возраст"
+    >
+
+    <input
+        name="salary"
+        type="number"
+        value="<?= e($user['salary']) ?>"
+        placeholder="Зарплата"
+    >
+
+    <input type="submit" value="Сохранить">
+</form>
+<?php
+require 'db.php';
+
+$id = (int)($_GET['id'] ?? 0);
+
+$name = $_POST['name'] ?? '';
+$age = (int)($_POST['age'] ?? 0);
+$salary = (int)($_POST['salary'] ?? 0);
+
+$stmt = mysqli_prepare(
+    $link,
+    "UPDATE users SET name = ?, age = ?, salary = ? WHERE id = ?"
+);
+
+mysqli_stmt_bind_param(
+    $stmt,
+    "siii",
+    $name,
+    $age,
+    $salary,
+    $id
+);
+
+mysqli_stmt_execute($stmt);
+
+echo 'Пользователь успешно изменён<br>';
+echo '<a href="index.php">Вернуться к списку</a>';
